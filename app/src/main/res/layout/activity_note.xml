@@ -16,6 +16,34 @@
         android:padding="4dp"
         android:textColor="#1e1e1e" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rb"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="High"
+            android:id="@+id/rb1"
+            tools:ignore="DuplicateIds" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:id="@+id/rb2"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Low"
+            android:id="@+id/rb3"/>
+
+    </RadioGroup>
+
+
     <Button
         android:id="@+id/btn_add"
         android:layout_width="match_parent"

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.byted.camp.todolist.beans.State;
@@ -33,6 +35,8 @@ public class NoteActivity extends AppCompatActivity {
     private static final String TAG = "NoteActivity";
     private EditText editText;
     private Button addBtn;
+    private RadioButton  rb1;
+    private RadioGroup rb;
 
     private TodoDbHelper dbHelper;
 
@@ -52,6 +56,16 @@ public class NoteActivity extends AppCompatActivity {
         }
         dbHelper = new TodoDbHelper(this);
         addBtn = findViewById(R.id.btn_add);
+        rb = findViewById(R.id.rb);
+        rb1 = findViewById(R.id.rb1);
+
+        rb.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                rb1= radioGroup.findViewById(i);
+                Toast.makeText(NoteActivity.this, "重要程度："+rb1.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +99,7 @@ public class NoteActivity extends AppCompatActivity {
     private boolean saveNote2Database(String content) {
         // TODO 插入一条新数据，返回是否插入成功
 
+
         Log.i(TAG, "perform add data, result:");
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -94,10 +109,25 @@ public class NoteActivity extends AppCompatActivity {
         Date date = new Date(System.currentTimeMillis());
 
         // Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(TodoContract.FeedEntry.COLUMN_NAME_DATE, simpleDateFormat.format(date));
         values.put(TodoContract.FeedEntry.COLUMN_NAME_STATE, state.toString());
         values.put(TodoContract.FeedEntry.COLUMN_NAME_CONTENT, content);
+        if (rb1.getText().equals("High")) {
+            values.put(TodoContract.FeedEntry.COLUMN_NAME_INFO, "1");
+        }
+
+        else if(rb1.getText().equals("Normal")) {
+            values.put(TodoContract.FeedEntry.COLUMN_NAME_INFO, "2");
+        }
+        else {
+            values.put(TodoContract.FeedEntry.COLUMN_NAME_INFO, "3");
+        }
+
+
+
+
+
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(TodoContract.FeedEntry.TABLE_NAME, null, values);

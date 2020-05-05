@@ -20,15 +20,17 @@ public final class TodoContract {
                     FeedEntry._ID + " INTEGER PRIMARY KEY," +
                     FeedEntry.COLUMN_NAME_DATE + " DATE," +
                     FeedEntry.COLUMN_NAME_STATE + " STATE," +
-                    FeedEntry.COLUMN_NAME_CONTENT + " CONTENT)";
+                    FeedEntry.COLUMN_NAME_CONTENT + " CONTENT," +
+                    FeedEntry.COLUMN_NAME_INFO + " INFO)";
 
     static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + FeedEntry.TABLE_NAME;
 
     public static class FeedEntry implements BaseColumns {
-        public static final String TABLE_NAME = "todolist2";
+        public static final String TABLE_NAME = "todolist3";
         public static final String COLUMN_NAME_DATE = "date";
         public static final String COLUMN_NAME_STATE = "state";
         public static final String COLUMN_NAME_CONTENT = "content";
+        public static final String COLUMN_NAME_INFO = "info";
     }
 
 }

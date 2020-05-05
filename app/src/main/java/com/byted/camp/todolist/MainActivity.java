@@ -147,11 +147,12 @@ public class MainActivity extends AppCompatActivity {
                 BaseColumns._ID,
                 FeedEntry.COLUMN_NAME_DATE,
                 FeedEntry.COLUMN_NAME_STATE,
-                FeedEntry.COLUMN_NAME_CONTENT
+                FeedEntry.COLUMN_NAME_CONTENT,
+                FeedEntry.COLUMN_NAME_INFO
         };
 
         String sortOrder =
-                FeedEntry.COLUMN_NAME_CONTENT + " DESC";
+                FeedEntry.COLUMN_NAME_INFO + " ASC";
 
         Cursor cursor = db.query(
                 FeedEntry.TABLE_NAME,   // The table to query
@@ -169,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
             String date_temp = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_DATE));
             String state_temp = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_STATE));
             String context = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_CONTENT));
-            Log.i(TAG, "ID:" + Id + ", DATE:" + date_temp + ", STATE:" + state_temp + ", context" + context);
+            String info = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_INFO));
+            Log.i(TAG, "ID:" + Id + ", DATE:" + date_temp + ", STATE:" + state_temp + ", context" + context + ", info" + info);
             Note note = new Note(Id);
             SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:MM:ss", Locale.ENGLISH);
             Date date = null;
@@ -188,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 note.setState(State.from(1));
             }
             note.setContent(context);
+            note.setInfo(Integer.valueOf(info).intValue());
             noteList.add(note);
         }
 
